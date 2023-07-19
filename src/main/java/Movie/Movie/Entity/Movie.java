@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
 
 @Getter
@@ -16,9 +18,12 @@ import java.util.UUID;
 public class Movie extends AbsEntity {
     @Column(nullable = false, precision = 10000)
     private String description;
-    private
+    private String country; //qaysi davlat kinosi
+    private Integer year;//qaysi yilda chiqgan
+    private String language;//film qaysi tilda
+    private String duration;//film necha soat
     @Column(nullable = false)
     private UUID movieId;
+    @ManyToOne(optional = false)
+    private Category category;
 }
-
-

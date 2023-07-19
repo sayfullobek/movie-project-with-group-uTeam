@@ -1,7 +1,7 @@
 package Movie.Movie.security;
 
+import Movie.Movie.service.AuthService;
 import io.jsonwebtoken.*;
-import ituniversal.videocourseserver.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

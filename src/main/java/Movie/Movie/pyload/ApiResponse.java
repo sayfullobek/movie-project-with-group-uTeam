@@ -1,12 +1,10 @@
 package Movie.Movie.pyload;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 public class ApiResponse {
     private String message;
     private boolean success;

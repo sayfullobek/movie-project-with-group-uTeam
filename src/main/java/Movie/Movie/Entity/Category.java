@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 public class Category extends AbsNameEntity {
