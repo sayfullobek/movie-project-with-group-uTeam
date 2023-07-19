@@ -1,0 +1,11 @@
+package Movie.Movie.Repository;
+
+import Movie.Movie.Entity.Movie;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.UUID;
+
+@CrossOrigin
+public interface MovieRepository extends JpaRepository<Movie, UUID> {
+}
