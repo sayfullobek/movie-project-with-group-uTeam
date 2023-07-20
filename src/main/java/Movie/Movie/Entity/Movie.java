@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.UUID;
 
@@ -16,6 +15,8 @@ import java.util.UUID;
 @Builder
 @Entity
 public class Movie extends AbsEntity {
+    @Column(nullable = false)
+    private String name;
     @Column(nullable = false, precision = 10000)
     private String description;
     private String country; //qaysi davlat kinosi
@@ -25,5 +26,8 @@ public class Movie extends AbsEntity {
     @Column(nullable = false)
     private UUID movieId;
     @ManyToOne(optional = false)
+    private Company company;
+    @ManyToOne(optional = false)
     private Category category;
+    private boolean like;
 }
