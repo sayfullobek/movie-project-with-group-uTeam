@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 @Builder
 @Entity
 public class Company extends AbsEntity {
+    @Column(nullable = false,unique = true)
+    private String username;
     @Column(nullable = false)
-    private String name;
+    private String password;
 }
