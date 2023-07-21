@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 @AllArgsConstructor
-
 @Builder
 @Entity
 public class Category extends AbsNameEntity {

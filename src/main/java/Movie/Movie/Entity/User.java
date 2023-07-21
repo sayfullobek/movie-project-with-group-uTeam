@@ -22,20 +22,12 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false)
     private String lastName;
 
-    //    @Column(nullable = false)
-    private String bio; //ustozning motivation biosi
-
-    //    @Column(nullable = false)
-    private String aboutTeacher; //ustoz haqidagi malumot
 
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(nullable = false)
     private String password;
-
-    @Column(name = "pupils_size")
-    private Integer teacherPupilSize; //ushbu o'qituvchi nechta o'quvchi o'qitgan
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_role",
@@ -48,18 +40,6 @@ public class User extends AbsEntity implements UserDetails {
     private boolean credentialsNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean accountNonExpired = true;
-
-    public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.roles = roles;
-        this.enabled = enabled;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

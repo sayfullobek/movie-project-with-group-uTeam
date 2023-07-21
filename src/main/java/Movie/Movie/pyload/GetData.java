@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class GetData {
     private User user;
     private ResToken resToken;
+
 }
