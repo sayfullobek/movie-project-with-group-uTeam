@@ -2,7 +2,7 @@ package Movie.Movie.service;
 
 import Movie.Movie.Entity.Category;
 import Movie.Movie.Entity.Company;
-import Movie.Movie.Entity.Movie;
+import Movie.Movie.Entity.Movies;
 import Movie.Movie.Repository.CategoryRepository;
 import Movie.Movie.Repository.CompanyRepository;
 import Movie.Movie.Repository.MovieRepository;
@@ -24,17 +24,18 @@ public class MovieService {
 
     public ApiResponse addMovie(MovieDto dto) {
         try {
-            Company getCompany = companyRepository.findById(dto.getMovieId()).orElseThrow(() -> new ResourceNotFoundException("getCompany"));
-            Category getCategory = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ResourceNotFoundException("getCategory"));
-            Movie build = Movie.builder()
+//            Company getCompany = companyRepository.findById(dto.getMovieId()).orElseThrow(() -> new ResourceNotFoundException("getCompany"));
+//            Category getCategory = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ResourceNotFoundException("getCategory"));
+            Movies build = Movies.builder()
                     .name(dto.getName())
                     .description(dto.getDescription())
                     .country(dto.getCountry())
                     .year(dto.getYear())
                     .language(dto.getLanguage())
                     .movieId(dto.getMovieId())
-                    .company(getCompany)
-                    .category(getCategory)
+                    .photoId(dto.getPhotoId())
+//                    .company(getCompany)
+//                    .category(getCategory)
                     .like(false)
                     .build();
             movieRepository.save(build);
@@ -46,7 +47,7 @@ public class MovieService {
 
     public ApiResponse editMovie(UUID movieId, MovieDto dto) {
         try {
-            Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
+            Movies movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
             Category getCategory = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ResourceNotFoundException("getCategory"));
             movie.setCategory(getCategory);
             movie.setCountry(dto.getCountry());
@@ -64,7 +65,7 @@ public class MovieService {
 
     public ApiResponse deleteMovie(UUID movieId) {
         try {
-            Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
+            Movies movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
             movieRepository.delete(movie);
             return new ApiResponse("Film O'chirildi", true);
         } catch (Exception e) {
@@ -74,7 +75,7 @@ public class MovieService {
 
     public ApiResponse like(UUID movieId) {
         try {
-            Movie movie = movieRepository.findById(movieId).orElseThrow(ResourceNotFoundException::new);
+            Movies movie = movieRepository.findById(movieId).orElseThrow(ResourceNotFoundException::new);
             movie.setLike(true);
             return new ApiResponse("Filmga like bosdingiz", true);
         } catch (Exception e) {

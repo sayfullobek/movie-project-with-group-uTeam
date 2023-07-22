@@ -17,5 +17,5 @@ public class Comment {
     @Column(nullable = false)
     private String comment;
     @ManyToOne
-    private Movie movies;
+    private Movies movies;
 }

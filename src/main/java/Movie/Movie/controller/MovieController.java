@@ -1,6 +1,6 @@
 package Movie.Movie.controller;
 
-import Movie.Movie.Entity.Movie;
+import Movie.Movie.Entity.Movies;
 import Movie.Movie.Repository.MovieRepository;
 import Movie.Movie.pyload.ApiResponse;
 import Movie.Movie.pyload.MovieDto;
@@ -23,13 +23,13 @@ public class MovieController {
 
     @GetMapping
     public HttpEntity<?> getMovie() {
-        List<Movie> all = movieRepository.findAll();
+        List<Movies> all = movieRepository.findAll();
         return ResponseEntity.ok(all);
     }
 
     @GetMapping("/{movieId}")
     public HttpEntity<?> getOneMovie(@PathVariable UUID movieId) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
+        Movies movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
         return ResponseEntity.ok(movie);
     }
 
@@ -49,5 +49,11 @@ public class MovieController {
     public HttpEntity<?> deleteMovie(@PathVariable UUID movieId) {
         ApiResponse apiResponse = movieService.deleteMovie(movieId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/{name}")
+    public HttpEntity<?> getMovieByCategory(@PathVariable String name) {
+        List<Movies> byCategoryName = movieRepository.findByCategoryName(name);
+        return ResponseEntity.ok(byCategoryName);
     }
 }
