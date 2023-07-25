@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/movie")
+@RequestMapping("/api/v1/movie")
 public class MovieController {
     private final MovieService movieService;
     private final MovieRepository movieRepository;
@@ -35,8 +35,15 @@ public class MovieController {
 
     @PostMapping
     public HttpEntity<?> addMovie(@RequestBody MovieDto movieDto) {
-        ApiResponse apiResponse = movieService.addMovie(movieDto);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        Movies movies = movieService.addMovie(movieDto);
+        return ResponseEntity.status(movies != null ? 200 : 409).body(movies);
+    }
+    @PutMapping("/upload-vd/{id}")
+    public HttpEntity<?> uploadVd(@PathVariable UUID id, @RequestParam(name = "vidId") UUID movieId){
+        Movies movies = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("movie topilmadi"));
+        movies.setMovieId(movieId);
+        movieRepository.save(movies);
+        return ResponseEntity.ok(new ApiResponse("video saqlandi", true));
     }
 
     @PutMapping("/{movieId}")

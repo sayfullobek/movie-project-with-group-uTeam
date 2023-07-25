@@ -22,8 +22,8 @@ public class Movies extends AbsEntity {
     private String duration;//film necha soat
     private UUID photoId;
     private UUID movieId;
-    @ManyToOne(optional = false)
-    private Company company;
+//    @ManyToOne(optional = false)
+//    private Company company;
     @ManyToOne(optional = false)
     private Category category;
     private boolean like;

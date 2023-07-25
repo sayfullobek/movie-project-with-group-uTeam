@@ -22,26 +22,23 @@ public class MovieService {
     private final CompanyRepository companyRepository;
     private final CategoryRepository categoryRepository;
 
-    public ApiResponse addMovie(MovieDto dto) {
+    public Movies addMovie(MovieDto dto) {
         try {
 //            Company getCompany = companyRepository.findById(dto.getMovieId()).orElseThrow(() -> new ResourceNotFoundException("getCompany"));
-//            Category getCategory = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ResourceNotFoundException("getCategory"));
+                Category getCategory = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ResourceNotFoundException("getCategory"));
             Movies build = Movies.builder()
                     .name(dto.getName())
                     .description(dto.getDescription())
                     .country(dto.getCountry())
                     .year(dto.getYear())
                     .language(dto.getLanguage())
-                    .movieId(dto.getMovieId())
                     .photoId(dto.getPhotoId())
-//                    .company(getCompany)
-//                    .category(getCategory)
+                    .category(getCategory)
                     .like(false)
                     .build();
-            movieRepository.save(build);
-            return new ApiResponse("Film Saqlandi", true);
+            return movieRepository.save(build);
         } catch (Exception e) {
-            return new ApiResponse("Film saqlashda hatolik", false);
+            return null;
         }
     }
 

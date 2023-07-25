@@ -21,7 +21,7 @@ public class MovieDto {
     private String duration;
     private UUID movieId;
     private UUID photoId;
-    private UUID companyId;
+//    private UUID companyId;
     private Integer categoryId;
     private boolean like;
 }
