@@ -16,6 +16,6 @@ public class Comment {
     private Integer id;
     @Column(nullable = false)
     private String comment;
-    @ManyToOne
-    private Movies movies;
+//    @ManyToOne
+//    private Movie movies;
 }

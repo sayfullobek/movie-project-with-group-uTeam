@@ -38,8 +38,9 @@ public class MovieController {
         Movies movies = movieService.addMovie(movieDto);
         return ResponseEntity.status(movies != null ? 200 : 409).body(movies);
     }
+
     @PutMapping("/upload-vd/{id}")
-    public HttpEntity<?> uploadVd(@PathVariable UUID id, @RequestParam(name = "vidId") UUID movieId){
+    public HttpEntity<?> uploadVd(@PathVariable UUID id, @RequestParam(name = "vidId") UUID movieId) {
         Movies movies = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("movie topilmadi"));
         movies.setMovieId(movieId);
         movieRepository.save(movies);
