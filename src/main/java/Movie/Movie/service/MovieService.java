@@ -30,6 +30,7 @@ public class MovieService {
                     .name(dto.getName())
                     .description(dto.getDescription())
                     .country(dto.getCountry())
+                    .duration(dto.getDuration())
                     .year(dto.getYear())
                     .language(dto.getLanguage())
                     .photoId(dto.getPhotoId())

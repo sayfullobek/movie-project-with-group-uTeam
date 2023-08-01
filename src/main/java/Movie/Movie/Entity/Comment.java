@@ -1,5 +1,6 @@
 package Movie.Movie.Entity;
 
+import Movie.Movie.Entity.template.AbsEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,12 +11,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Comment extends AbsEntity {
     @Column(nullable = false)
     private String comment;
-//    @ManyToOne
-//    private Movie movies;
+    @ManyToOne
+    private Movies movies;
 }

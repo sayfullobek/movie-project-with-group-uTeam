@@ -23,28 +23,46 @@ public class MovieController {
 
     @GetMapping
     public HttpEntity<?> getMovie() {
-        List<Movies> all = movieRepository.findAll();
-        return ResponseEntity.ok(all);
+        try {
+            List<Movies> all = movieRepository.findAll();
+            return ResponseEntity.ok(all);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @GetMapping("/{movieId}")
     public HttpEntity<?> getOneMovie(@PathVariable UUID movieId) {
-        Movies movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
-        return ResponseEntity.ok(movie);
+        try {
+            Movies movie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("getMovie"));
+            return ResponseEntity.ok(movie);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     @PostMapping
     public HttpEntity<?> addMovie(@RequestBody MovieDto movieDto) {
-        Movies movies = movieService.addMovie(movieDto);
-        return ResponseEntity.status(movies != null ? 200 : 409).body(movies);
+        try {
+            Movies movies = movieService.addMovie(movieDto);
+            return ResponseEntity.status(movies != null ? 200 : 409).body(movies);
+
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @PutMapping("/upload-vd/{id}")
-    public HttpEntity<?> uploadVd(@PathVariable UUID id, @RequestParam(name = "vidId") UUID movieId) {
-        Movies movies = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("movie topilmadi"));
-        movies.setMovieId(movieId);
-        movieRepository.save(movies);
-        return ResponseEntity.ok(new ApiResponse("video saqlandi", true));
+    public HttpEntity<?> uploadVd(@PathVariable UUID id, @RequestParam(name = "videoId") UUID movieId) {
+        try {
+            Movies movies = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("movie topilmadi"));
+            movies.setMovieId(movieId);
+            movieRepository.save(movies);
+            return ResponseEntity.ok(new ApiResponse("video saqlandi", true));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @PutMapping("/{movieId}")
@@ -55,13 +73,30 @@ public class MovieController {
 
     @DeleteMapping("/{movieId}")
     public HttpEntity<?> deleteMovie(@PathVariable UUID movieId) {
-        ApiResponse apiResponse = movieService.deleteMovie(movieId);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        try {
+            ApiResponse apiResponse = movieService.deleteMovie(movieId);
+            return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    @GetMapping("/{name}")
-    public HttpEntity<?> getMovieByCategory(@PathVariable String name) {
-        List<Movies> byCategoryName = movieRepository.findByCategoryName(name);
-        return ResponseEntity.ok(byCategoryName);
+    @GetMapping("/category/{id}")
+    public HttpEntity<?> getMovieByCategory(@PathVariable Integer id) {
+        try {
+            List<Movies> byCategoryName = movieRepository.findByCategoryId(id);
+            return ResponseEntity.ok(byCategoryName);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    @GetMapping("/search")
+    public HttpEntity<?> search(@RequestParam String name){
+        try {
+            List<Movies> movies = movieRepository.searchAllByName(name);
+            return ResponseEntity.ok(movies);
+        }catch (Exception e){
+            return ResponseEntity.ok(new ApiResponse("Xato",false));
+        }
     }
 }
