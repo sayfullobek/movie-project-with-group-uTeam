@@ -71,7 +71,7 @@ public class MovieService {
         }
     }
 
-    public ApiResponse like(UUID movieId) {
+   public ApiResponse like(UUID movieId) {
         try {
             Movies movie = movieRepository.findById(movieId).orElseThrow(ResourceNotFoundException::new);
             movie.setLike(true);
